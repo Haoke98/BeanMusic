@@ -1,4 +1,4 @@
-package com.sadam.ui4;
+package com.sadam.ui4.FragmentMessagePage;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,18 +9,18 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.tabs.TabLayout;
+import com.sadam.ui4.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentSelfPage.OnFragmentInteractionListener} interface
+ * {@link FragmentMessagesPage.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentSelfPage#newInstance} factory method to
+ * Use the {@link FragmentMessagesPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentSelfPage extends Fragment {
+public class FragmentMessagesPage extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,10 +31,8 @@ public class FragmentSelfPage extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private TabLayout tabLayout_note_like_product;
-    private Fragment currentFragment;
 
-    public FragmentSelfPage() {
+    public FragmentMessagesPage() {
         // Required empty public constructor
     }
 
@@ -44,11 +42,11 @@ public class FragmentSelfPage extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SelfPageFragment.
+     * @return A new instance of fragment MessagesPageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentSelfPage newInstance(String param1, String param2) {
-        FragmentSelfPage fragment = new FragmentSelfPage();
+    public static FragmentMessagesPage newInstance(String param1, String param2) {
+        FragmentMessagesPage fragment = new FragmentMessagesPage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,41 +67,7 @@ public class FragmentSelfPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_self_page, container, false);
-        final FragmentNote fragmentNote = new FragmentNote();
-        final FragmentLike fragmentLike = new FragmentLike();
-        final FragmentProduct fragmentProduct = new FragmentProduct();
-        tabLayout_note_like_product = view.findViewById(R.id.tablayout_note_product_like);
-        tabLayout_note_like_product.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()) {
-                    case 0:
-                        currentFragment = MainActivity.SadamReplaceFragment(getActivity(), R.id.fragment_layout_note_product_like, currentFragment, fragmentNote);
-                        break;
-                    case 1:
-                        currentFragment = MainActivity.SadamReplaceFragment(getActivity(), R.id.fragment_layout_note_product_like, currentFragment, fragmentProduct);
-                        break;
-                    case 2:
-                        currentFragment = MainActivity.SadamReplaceFragment(getActivity(), R.id.fragment_layout_note_product_like, currentFragment, fragmentLike);
-                        break;
-
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        tabLayout_note_like_product.getTabAt(1).select();
-        tabLayout_note_like_product.getTabAt(0).select();
-        return view;
+        return inflater.inflate(R.layout.fragment_messages_page, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

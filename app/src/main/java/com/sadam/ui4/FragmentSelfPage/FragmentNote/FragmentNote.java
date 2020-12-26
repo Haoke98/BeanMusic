@@ -1,4 +1,4 @@
-package com.sadam.ui4;
+package com.sadam.ui4.FragmentSelfPage.FragmentNote;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sadam.ui4.ActivityLogin;
 import com.sadam.ui4.Data.MySqLiteOpenHelper;
+import com.sadam.ui4.Data.Note;
 import com.sadam.ui4.Data.User;
-import com.sadam.ui4.Note.Note;
-import com.sadam.ui4.Note.NoteAdapter;
+import com.sadam.ui4.MainActivity;
+import com.sadam.ui4.R;
 
 import java.util.ArrayList;
 
@@ -121,7 +123,7 @@ public class FragmentNote extends Fragment {
     }
 
     public ArrayList<Note> initNotes() {
-        mySqLiteOpenHelper = new MySqLiteOpenHelper(getContext(), MySqLiteOpenHelper.DATABASE_NAME, null, MySqLiteOpenHelper.DATABASE_VERSION);
+        mySqLiteOpenHelper = ((MainActivity) getActivity()).getMySqLiteOpenHelper();
         currentUser = ActivityLogin.getCurrentUserFromSharedPrefrences(getContext(), mySqLiteOpenHelper);
         ArrayList<Note> notes = currentUser.getNoteArrayList();
         if (notes.isEmpty()) {

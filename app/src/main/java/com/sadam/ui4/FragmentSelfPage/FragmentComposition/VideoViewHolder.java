@@ -1,4 +1,4 @@
-package com.sadam.ui4.video;
+package com.sadam.ui4.FragmentSelfPage.FragmentComposition;
 
 import android.media.MediaPlayer;
 import android.view.MotionEvent;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sadam.ui4.Data.Video;
 import com.sadam.ui4.MainActivity;
 import com.sadam.ui4.MyVideoView;
 import com.sadam.ui4.R;

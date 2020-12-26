@@ -1,20 +1,20 @@
-package com.sadam.ui4;
+package com.sadam.ui4.FragmentSelfPage.FragmentLike;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.fragment.app.Fragment;
 
+import com.sadam.ui4.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentProduct#newInstance} factory method to
+ * Use the {@link FragmentLike#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentProduct extends Fragment {
+public class FragmentLike extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,9 +24,8 @@ public class FragmentProduct extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private TimePicker timePicker;
 
-    public FragmentProduct() {
+    public FragmentLike() {
         // Required empty public constructor
     }
 
@@ -36,11 +35,11 @@ public class FragmentProduct extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentProduct.
+     * @return A new instance of fragment FragmentLike.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentProduct newInstance(String param1, String param2) {
-        FragmentProduct fragment = new FragmentProduct();
+    public static FragmentLike newInstance(String param1, String param2) {
+        FragmentLike fragment = new FragmentLike();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,15 +60,6 @@ public class FragmentProduct extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_product, container, false);
-        final TextView textView = view.findViewById(R.id.textview_timepicker_show);
-        timePicker = view.findViewById(R.id.timepicker_fragment_product);
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                textView.setText(hourOfDay + ":" + minute);
-            }
-        });
-        return view;
+        return inflater.inflate(R.layout.fragment_like, container, false);
     }
 }

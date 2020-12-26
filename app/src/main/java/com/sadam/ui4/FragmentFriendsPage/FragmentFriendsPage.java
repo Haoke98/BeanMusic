@@ -1,24 +1,33 @@
-package com.sadam.ui4;
+package com.sadam.ui4.FragmentFriendsPage;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.VideoView;
 
 import androidx.fragment.app.Fragment;
+
+import com.sadam.ui4.Camera.FragmentPlusPage;
+import com.sadam.ui4.MainActivity;
+import com.sadam.ui4.R;
+import com.sadam.ui4.SadamFragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentMessagesPage.OnFragmentInteractionListener} interface
+ * {@link FragmentFriendsPage.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentMessagesPage#newInstance} factory method to
+ * Use the {@link FragmentFriendsPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentMessagesPage extends Fragment {
+public class FragmentFriendsPage extends SadamFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,8 +38,10 @@ public class FragmentMessagesPage extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private MediaPlayer mediaPlayer;
+    private VideoView videoView;
 
-    public FragmentMessagesPage() {
+    public FragmentFriendsPage() {
         // Required empty public constructor
     }
 
@@ -40,11 +51,11 @@ public class FragmentMessagesPage extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MessagesPageFragment.
+     * @return A new instance of fragment FriendsPageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentMessagesPage newInstance(String param1, String param2) {
-        FragmentMessagesPage fragment = new FragmentMessagesPage();
+    public static FragmentFriendsPage newInstance(String param1, String param2) {
+        FragmentFriendsPage fragment = new FragmentFriendsPage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,7 +76,45 @@ public class FragmentMessagesPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_messages_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_friends_page, container, false);
+        videoView = view.findViewById(R.id.videoview_friendspage);
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mediaPlayer = mp;
+                mp.start();
+                mp.setLooping(true);
+            }
+        });
+        videoView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mediaPlayer != null) {
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.pause();
+                    } else {
+                        mediaPlayer.start();
+                    }
+                }
+                return false;
+            }
+        });
+
+        return view;
+    }
+
+
+    public void onActive() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainActivity.DEFAULT_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        String videoFileAbsPath = sharedPreferences.getString(FragmentPlusPage.SHARED_PREFERENCES_KEY_VIDEO_FILE_PATH, "");
+        videoView.setVideoPath(videoFileAbsPath);
+        videoView.requestFocus();
+        videoView.start();
+    }
+
+    @Override
+    public void onUnActive() {
+        super.onUnActive();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

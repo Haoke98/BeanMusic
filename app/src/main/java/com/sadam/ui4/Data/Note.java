@@ -1,8 +1,6 @@
-package com.sadam.ui4.Note;
+package com.sadam.ui4.Data;
 
 import android.util.Log;
-
-import com.sadam.ui4.Data.User;
 
 import java.sql.Timestamp;
 import java.util.Date;

@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.sadam.ui4.Note.Note;
-
 import java.util.ArrayList;
 
 public class MySqLiteOpenHelper extends SQLiteOpenHelper {
@@ -19,6 +17,7 @@ public class MySqLiteOpenHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME_Note = "Note";
     private static final String TABLE_NAME_User = "User";
+    private static final String TABLE_NAME_Video = "Video";
     private static final String CREATE_Note = "CREATE TABLE \"" + TABLE_NAME_Note + "\" (\n" +
             "\t\"id\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n" +
             "\t\"content\"\tINTEGER,\n" +
@@ -32,8 +31,13 @@ public class MySqLiteOpenHelper extends SQLiteOpenHelper {
             "\t\"password\"\tTEXT NOT NULL,\n" +
             "\t\"isDeleted\"\tINTEGER NOT NULL\n" +
             ");";
-    private static final String DROP_Note = "drop table if exists Note";
-    private static final String DROP_User = "drop table if exists User";
+    private static final String CREATE_Video = "CREATE TABLE \"" + TABLE_NAME_Video + "\"(\n" +
+            "\t\"id\"\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,\n" +
+            "\t\"user_id\"\tINTEGER NOT NULL,\n" +
+            "\t\"videoFilePath\"\tTEXT NOT NULL);";
+    private static final String DROP_Note = "drop table if exists " + TABLE_NAME_Note;
+    private static final String DROP_User = "drop table if exists " + TABLE_NAME_User;
+    private static final String DROP_Video = "drop table if exists " + TABLE_NAME_Video;
     private static final int HAS_DELETED = 1;
     private static final int UN_DELETED = 0;
 
@@ -51,20 +55,51 @@ public class MySqLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.e("CREATE_Note", CREATE_Note);
         db.execSQL(CREATE_Note);
-        Toast.makeText(mContext, "CREATE_Note success!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "CREATE_Note success!", Toast.LENGTH_SHORT).show();
         Log.e("CREATE_User", CREATE_User);
         db.execSQL(CREATE_User);
-        Toast.makeText(mContext, "CREATE_User success!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "CREATE_User success!", Toast.LENGTH_SHORT).show();
+        db.execSQL(CREATE_Video);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DROP_Note);
-        Toast.makeText(mContext, "Drop Table Note success!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "Drop Table Note success!", Toast.LENGTH_SHORT).show();
         db.execSQL(DROP_User);
-        Toast.makeText(mContext, "Drop Table User success!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "Drop Table User success!", Toast.LENGTH_SHORT).show();
+        db.execSQL(DROP_Video);
         onCreate(db);
         Toast.makeText(mContext, "Update Database success!", Toast.LENGTH_SHORT).show();
+    }
+
+    public Long insertVideo(Long user_id, String videoFilePath) {
+        values.put("user_id", user_id);
+        values.put("videoFilePath", videoFilePath);
+        Long id = this.db.insert(TABLE_NAME_Video, null, values);
+        values.clear();
+        return id;
+    }
+
+    public ArrayList<Video> getAllVideosByUser(User user) {
+        ArrayList<Video> videoArrayList = new ArrayList<>();
+        Long userId = user.getId();
+        String SQL_CMD = "SELECT * FROM \"" + TABLE_NAME_Video + "\" WHERE user_id=? ORDER BY changedTime;";
+        Cursor cursor = db.rawQuery(SQL_CMD, new String[]{String.valueOf(userId)});
+        if (cursor.moveToFirst()) {
+            do {
+                Long id = cursor.getLong(cursor.getColumnIndex("id"));
+                String videoFilePath = cursor.getString(cursor.getColumnIndex("videoFilePath"));
+                int scale = 100000
+                int likeCount = Math.random() * scale;
+                int shareCount = Math.random() * scale;
+                int commentCount = Math.random() * scale;
+                Video video = new Video(videoFilePath, likeCount, commentCount, shareCount, "移动应用开发课真牛逼", "this is introuduction", "userAvatar", "@北邮数字媒体技术", id, user);
+                videoArrayList.add(video);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return videoArrayList;
     }
 
     public Long insertUser(String username, String password) {

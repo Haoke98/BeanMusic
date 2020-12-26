@@ -1,4 +1,4 @@
-package com.sadam.ui4.video;
+package com.sadam.ui4.FragmentHomePage;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sadam.ui4.Data.Video;
 import com.sadam.ui4.MainActivity;
 import com.sadam.ui4.R;
 

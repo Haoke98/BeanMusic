@@ -1,4 +1,4 @@
-package com.sadam.ui4;
+package com.sadam.ui4.FragmentHomePage;
 
 import android.content.Context;
 import android.net.Uri;
@@ -20,8 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sadam.ui4.video.Video;
-import com.sadam.ui4.video.VideoAdapter;
+import com.sadam.ui4.Data.Video;
+import com.sadam.ui4.MainActivity;
+import com.sadam.ui4.MyVideoView;
+import com.sadam.ui4.R;
 
 import java.util.ArrayList;
 

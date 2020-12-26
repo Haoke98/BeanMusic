@@ -1,28 +1,31 @@
-package com.sadam.ui4;
+package com.sadam.ui4.FragmentSelfPage;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.VideoView;
 
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.tabs.TabLayout;
+import com.sadam.ui4.FragmentSelfPage.FragmentComposition.FragmentComposition;
+import com.sadam.ui4.FragmentSelfPage.FragmentLike.FragmentLike;
+import com.sadam.ui4.FragmentSelfPage.FragmentNote.FragmentNote;
+import com.sadam.ui4.MainActivity;
+import com.sadam.ui4.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentFriendsPage.OnFragmentInteractionListener} interface
+ * {@link FragmentSelfPage.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentFriendsPage#newInstance} factory method to
+ * Use the {@link FragmentSelfPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentFriendsPage extends SadamFragment {
+public class FragmentSelfPage extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,10 +36,10 @@ public class FragmentFriendsPage extends SadamFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private MediaPlayer mediaPlayer;
-    private VideoView videoView;
+    private TabLayout tabLayout_note_like_product;
+    private Fragment currentFragment;
 
-    public FragmentFriendsPage() {
+    public FragmentSelfPage() {
         // Required empty public constructor
     }
 
@@ -46,11 +49,11 @@ public class FragmentFriendsPage extends SadamFragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FriendsPageFragment.
+     * @return A new instance of fragment SelfPageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentFriendsPage newInstance(String param1, String param2) {
-        FragmentFriendsPage fragment = new FragmentFriendsPage();
+    public static FragmentSelfPage newInstance(String param1, String param2) {
+        FragmentSelfPage fragment = new FragmentSelfPage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -71,45 +74,41 @@ public class FragmentFriendsPage extends SadamFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_friends_page, container, false);
-        videoView = view.findViewById(R.id.videoview_friendspage);
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        View view = inflater.inflate(R.layout.fragment_self_page, container, false);
+        final FragmentNote fragmentNote = new FragmentNote();
+        final FragmentLike fragmentLike = new FragmentLike();
+        final FragmentComposition fragmentComposition = new FragmentComposition();
+        tabLayout_note_like_product = view.findViewById(R.id.tablayout_note_product_like);
+        tabLayout_note_like_product.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onPrepared(MediaPlayer mp) {
-                mediaPlayer = mp;
-                mp.start();
-                mp.setLooping(true);
-            }
-        });
-        videoView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (mediaPlayer != null) {
-                    if (mediaPlayer.isPlaying()) {
-                        mediaPlayer.pause();
-                    } else {
-                        mediaPlayer.start();
-                    }
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        currentFragment = MainActivity.SadamReplaceFragment(getActivity(), R.id.fragment_layout_note_product_like, currentFragment, fragmentNote);
+                        break;
+                    case 1:
+                        currentFragment = MainActivity.SadamReplaceFragment(getActivity(), R.id.fragment_layout_note_product_like, currentFragment, fragmentComposition);
+                        break;
+                    case 2:
+                        currentFragment = MainActivity.SadamReplaceFragment(getActivity(), R.id.fragment_layout_note_product_like, currentFragment, fragmentLike);
+                        break;
+
                 }
-                return false;
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
-
+        tabLayout_note_like_product.getTabAt(1).select();
+        tabLayout_note_like_product.getTabAt(0).select();
         return view;
-    }
-
-
-    public void onActive() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainActivity.DEFAULT_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        String videoFileAbsPath = sharedPreferences.getString(FragmentPlusPage.SHARED_PREFERENCES_KEY_VIDEO_FILE_PATH, "");
-        videoView.setVideoPath(videoFileAbsPath);
-        videoView.requestFocus();
-        videoView.start();
-    }
-
-    @Override
-    public void onUnActive() {
-        super.onUnActive();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

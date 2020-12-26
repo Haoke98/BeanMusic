@@ -15,8 +15,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
+import com.sadam.ui4.Camera.FragmentPlusPage;
 import com.sadam.ui4.Data.MySqLiteOpenHelper;
 import com.sadam.ui4.Data.User;
+import com.sadam.ui4.FragmentFriendsPage.FragmentFriendsPage;
+import com.sadam.ui4.FragmentHomePage.FragmentHomePage;
+import com.sadam.ui4.FragmentMessagePage.FragmentMessagesPage;
+import com.sadam.ui4.FragmentSelfPage.FragmentSelfPage;
 
 import java.util.Objects;
 
@@ -147,6 +152,10 @@ public class MainActivity extends AppCompatActivity implements FragmentHomePage.
 //        }else{
 //            requestPermissions(new String[]{Manifest.permission.},RECORD_AUDIO_PREMISSION_REQUEST_CODE);
 //        }
+    }
+
+    public MySqLiteOpenHelper getMySqLiteOpenHelper() {
+        return mySqLiteOpenHelper;
     }
 
     @Override

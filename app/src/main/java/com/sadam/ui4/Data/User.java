@@ -3,8 +3,6 @@ package com.sadam.ui4.Data;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.sadam.ui4.Note.Note;
-
 import java.util.ArrayList;
 
 public class User {

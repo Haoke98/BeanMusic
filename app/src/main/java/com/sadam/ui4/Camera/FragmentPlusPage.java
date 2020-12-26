@@ -1,4 +1,4 @@
-package com.sadam.ui4;
+package com.sadam.ui4.Camera;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,10 +21,14 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.sadam.ui4.Camera.CameraPreview;
+import com.sadam.ui4.ActivityLogin;
+import com.sadam.ui4.Data.Video;
+import com.sadam.ui4.MainActivity;
+import com.sadam.ui4.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 
 
 /**
@@ -89,89 +93,8 @@ public class FragmentPlusPage extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_plus_page_fragement, container, false);
-        frameLayout = view.findViewById(R.id.framelayout_for_camerapreview);
-        btnCameraSwitch = view.findViewById(R.id.btn_camera_switch);
-        /*相机权限在Activity中已经动态申请处理*/
-        btnCameraSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int cameraCount = Camera.getNumberOfCameras();
-                Toast.makeText(getContext(), "总共有" + cameraCount + "个相机", Toast.LENGTH_SHORT).show();
-                for (int i = 0; i < cameraCount; i++) {
-                    Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-                    Camera.getCameraInfo(i, cameraInfo);
-                    if (currActiveCamera != null) {
-                        currActiveCamera.stopPreview();
-                        currActiveCamera.release();
-                        currActiveCamera = null;
-                    }
-                    if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
-                        if (isFrontCamera) {
-                            /*如果是当前激活的相机是前置的话，就切换到后置*/
-                            currActiveCamera = Camera.open(i);
-                            break;
-                        } else {
-
-                        }
-                    } else {
-                        if (isFrontCamera) {
-
-                        } else {
-                            currActiveCamera = Camera.open(i);
-                            break;
-                        }
-                    }
-                }
-                cameraPreview = new CameraPreview(getContext(), currActiveCamera);
-                frameLayout.addView(cameraPreview);
-                isFrontCamera = !isFrontCamera;
-
-            }
-        });
-        Button btnTakePicture = view.findViewById(R.id.btn_takepictures);
-        btnTakePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (isRecording) {
-                    stopRecording();
-                } else {
-                    initMediaRecorder();
-                }
-
-//                currActiveCamera.setAutoFocusMoveCallback(new Camera.AutoFocusMoveCallback() {
-//                    @Override
-//                    public void onAutoFocusMoving(boolean start, Camera camera) {
-//                        Camera.Parameters  parameters = currActiveCamera.getParameters();
-//                        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-//                        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
-//                        currActiveCamera.setParameters(parameters);
-//
-//                    }
-//                });
-            }
-
-        });
-        Button btnInit = view.findViewById(R.id.btn_init_media_recorder);
-        btnInit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initMediaRecorder();
-            }
-        });
-        Button btnPrepared = view.findViewById(R.id.btn_prepare);
-        btnPrepared.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        return view;
-    }
+    private MainActivity mainActivity;
+    private String videoOutputFileAbsPath;
 
     @Override
     public void onResume() {
@@ -254,15 +177,108 @@ public class FragmentPlusPage extends Fragment {
         }
     }
 
+    private User currUser;
+
+    public static String uploadFile(String url, String filePath) {
+        try {
+//            Ht\
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_plus_page_fragement, container, false);
+        mainActivity = ((MainActivity) getActivity()).getMySqLiteOpenHelper();
+        currUser = ActivityLogin.getCu rrentUserFromSharedPrefrences(getContext(), mainActivity);
+
+        frameLayout = view.findViewById(R.id.framelayout_for_camerapreview);
+        btnCameraSwitch = view.findViewById(R.id.btn_camera_switch);
+        /*相机权限在Activity中已经动态申请处理*/
+        btnCameraSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int cameraCount = Camera.getNumberOfCameras();
+                Toast.makeText(getContext(), "总共有" + cameraCount + "个相机", Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < cameraCount; i++) {
+                    Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+                    Camera.getCameraInfo(i, cameraInfo);
+                    if (currActiveCamera != null) {
+                        currActiveCamera.stopPreview();
+                        currActiveCamera.release();
+                        currActiveCamera = null;
+                    }
+                    if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                        if (isFrontCamera) {
+                            /*如果是当前激活的相机是前置的话，就切换到后置*/
+                            currActiveCamera = Camera.open(i);
+                            break;
+                        } else {
+
+                        }
+                    } else {
+                        if (isFrontCamera) {
+
+                        } else {
+                            currActiveCamera = Camera.open(i);
+                            break;
+                        }
+                    }
+                }
+                cameraPreview = new CameraPreview(getContext(), currActiveCamera);
+                frameLayout.addView(cameraPreview);
+                isFrontCamera = !isFrontCamera;
+
+            }
+        });
+        Button btnTakePicture = view.findViewById(R.id.btn_takepictures);
+        btnTakePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isRecording) {
+                    stopRecording();
+                } else {
+                    initMediaRecorder();
+                }
+
+//                currActiveCamera.setAutoFocusMoveCallback(new Camera.AutoFocusMoveCallback() {
+//                    @Override
+//                    public void onAutoFocusMoving(boolean start, Camera camera) {
+//                        Camera.Parameters  parameters = currActiveCamera.getParameters();
+//                        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+//                        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+//                        currActiveCamera.setParameters(parameters);
+//
+//                    }
+//                });
+            }
+
+        });
+        Button btnInit = view.findViewById(R.id.btn_init_media_recorder);
+        btnInit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initMediaRecorder();
+            }
+        });
+        Button btnPrepared = view.findViewById(R.id.btn_prepare);
+        btnPrepared.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        return view;
+    }
+
     private void prepareRecorder() {
         try {
-            File videoOutputFile = new File(Environment.getExternalStorageDirectory().getCanonicalFile() + "/SadamVideo.mp4");
+            File videoOutputFile = new File(Environment.getExternalStorageDirectory().getCanonicalFile() + getFileNameByTime(".mp4");)
+            ;
             mediaRecorder.setOutputFile(videoOutputFile.getAbsolutePath());
-            Log.e("FilePath:", videoOutputFile.getAbsolutePath());
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainActivity.DEFAULT_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(FragmentPlusPage.SHARED_PREFERENCES_KEY_VIDEO_FILE_PATH, videoOutputFile.getAbsolutePath());
-            editor.commit();
+            videoOutputFileAbsPath = videoOutputFile.getAbsolutePath();
+            Log.e("FilePath:", videoOutputFileAbsPath);
             mediaRecorder.prepare();
             Log.i("VideoRecorder", "---开始预览---");
             startRecording();
@@ -278,7 +294,26 @@ public class FragmentPlusPage extends Fragment {
         Log.i("VideoRecorder", "begin recording ....");
     }
 
+    public void getFileNameByTime(String ext) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        return "SadamBeansMusic" + simpleDateFormat.format(new Date()) + (ext == null ? "" : ext);
+    }
+
+    private void releaseCamera() {
+        if (currActiveCamera != null) {
+            currActiveCamera.stopPreview();
+            currActiveCamera.release();
+            currActiveCamera = null;
+        }
+    }
+
     private void stopRecording() {
+        Video video = new Video(videoOutputFileAbsPath, currUser);
+        video.save();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainActivity.DEFAULT_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(FragmentPlusPage.SHARED_PREFERENCES_KEY_VIDEO_FILE_PATH, videoOutputFileAbsPath);
+        editor.commit();
         if (mediaRecorder != null) {
             mediaRecorder.stop();
             mediaRecorder.reset();
@@ -290,15 +325,6 @@ public class FragmentPlusPage extends Fragment {
         btnCameraSwitch.setEnabled(true);
         Log.i("VideoRecorder", "stop recording ...");
     }
-
-    private void releaseCamera() {
-        if (currActiveCamera != null) {
-            currActiveCamera.stopPreview();
-            currActiveCamera.release();
-            currActiveCamera = null;
-        }
-    }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
