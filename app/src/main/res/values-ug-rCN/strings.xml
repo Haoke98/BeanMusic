@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ئېقىم</string>
+    <string name="homePage">باش بەت</string>
+    <string name="friendPage">دوسلۇرۇم</string>
+    <string name="messagePage">ئۇچۇرلار</string>
+    <string name="selfPage">شەخسىي بەت</string>
+    <string name="areaPage">ئەتراپىمدىكىلەر</string>
+    <string name="followPage">مەن ئەگەشكەنلەر</string>
+    <string name="recommendPage">تەشەببۇسلار</string>
+    <string name="username">سادام قىسقا ئۇچۇر ئەپچىقى</string>
+</resources>

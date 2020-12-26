@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <bitmap android:src="@drawable/like" android:tint="#D81B60" />
+    </item>
+    <item android:state_pressed="false">
+        <bitmap android:src="@drawable/like" android:tint="#FFFFFF" />
+    </item>
+    <!--    <item>-->
+    <!--        <layer-list>-->
+    <!--            <item>-->
+
+    <!--            </item>-->
+    <!--&lt;!&ndash;            <item android:drawable="#D81B60"></item>&ndash;&gt;-->
+    <!--        </layer-list>-->
+    <!--    </item>-->
+</selector>

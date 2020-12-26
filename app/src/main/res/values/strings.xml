@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">豆音</string>
+    <string name="homePage">首页</string>
+    <string name="friendPage">朋友</string>
+    <string name="messagePage">消息</string>
+    <string name="selfPage">我</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="areaPage">海淀</string>
+    <string name="followPage">关注</string>
+    <string name="recommendPage">推荐</string>
+    <string name="username">@萨达木抖音模仿版</string>
+    <string name="title_activity_login">ActivityLogin</string>
+    <string name="prompt_email">邮箱/手机号/用户名</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">登陆</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+</resources>

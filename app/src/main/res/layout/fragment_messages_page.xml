@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context=".FragmentMessagesPage">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="消息"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button14"
+            android:layout_width="@dimen/followersButton"
+            android:layout_height="@dimen/followersButton"
+            android:background="@drawable/followers"
+            android:foregroundGravity="clip_horizontal|clip_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.07" />
+
+        <Button
+            android:id="@+id/button15"
+            android:layout_width="@dimen/followersButton"
+            android:layout_height="@dimen/followersButton"
+            android:background="@drawable/like"
+            android:foregroundGravity="center_vertical|clip_horizontal|clip_vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/button14"
+            app:layout_constraintEnd_toStartOf="@+id/button16"
+            app:layout_constraintStart_toEndOf="@+id/button14"
+            app:layout_constraintTop_toTopOf="@+id/button14"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/button16"
+            android:layout_width="@dimen/followersButton"
+            android:layout_height="@dimen/followersButton"
+            android:background="@drawable/aite"
+            app:layout_constraintBottom_toBottomOf="@+id/button14"
+            app:layout_constraintEnd_toStartOf="@+id/button24"
+            app:layout_constraintStart_toEndOf="@+id/button15"
+            app:layout_constraintTop_toTopOf="@+id/button14"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/button24"
+            android:layout_width="@dimen/followersButton"
+            android:layout_height="@dimen/followersButton"
+            android:backgroundTint="#8E24AA"
+            android:foreground="@drawable/comment"
+            app:layout_constraintBottom_toBottomOf="@+id/button14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button16"
+            app:layout_constraintTop_toTopOf="@+id/button14"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="粉丝"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/button14"
+            app:layout_constraintStart_toStartOf="@+id/button14"
+            app:layout_constraintTop_toBottomOf="@+id/button14" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="赞"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/button15"
+            app:layout_constraintStart_toStartOf="@+id/button15"
+            app:layout_constraintTop_toBottomOf="@+id/button14" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@的我的"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/button16"
+            app:layout_constraintStart_toStartOf="@+id/button16"
+            app:layout_constraintTop_toBottomOf="@+id/button14" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评论"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/button24"
+            app:layout_constraintStart_toStartOf="@+id/button24"
+            app:layout_constraintTop_toBottomOf="@+id/button24" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button14">
+
+            <Button
+                android:id="@+id/button25"
+                android:layout_width="@dimen/followersButton"
+                android:layout_height="@dimen/followersButton"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/shape_round3"
+                android:foreground="@drawable/user_avatar"
+                android:foregroundGravity="clip_horizontal|clip_vertical|fill"
+                android:foregroundTintMode="src_in"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginBottom="16dp"
+                android:text="萨达木抖音模仿版小助手"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/textView22"
+                app:layout_constraintStart_toEndOf="@+id/button25"
+                app:layout_constraintTop_toTopOf="@+id/button25" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="安全登录提醒 07：05 昨天"
+                android:textColor="#716E6E"
+                app:layout_constraintBottom_toBottomOf="@+id/button25"
+                app:layout_constraintStart_toStartOf="@+id/textView21"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

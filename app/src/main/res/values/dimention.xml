@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="floatButtonWidth">30dp</dimen>
+    <dimen name="floatButtonWidth2">50dp</dimen>
+    <dimen name="plusFollowButton">20dp</dimen>
+    <dimen name="followButtonWidth">160dp</dimen>
+    <dimen name="toolButtonWidth">60dp</dimen>
+    <dimen name="followersButton">60dp</dimen>
+    <dimen name="userAvatar">100dp</dimen>
+</resources>
