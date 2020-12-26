@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class MySqLiteOpenHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "UI4_DATABASE";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     private static final String TABLE_NAME_Note = "Note";
     private static final String TABLE_NAME_User = "User";
     private static final String TABLE_NAME_Video = "Video";
@@ -84,16 +84,16 @@ public class MySqLiteOpenHelper extends SQLiteOpenHelper {
     public ArrayList<Video> getAllVideosByUser(User user) {
         ArrayList<Video> videoArrayList = new ArrayList<>();
         Long userId = user.getId();
-        String SQL_CMD = "SELECT * FROM \"" + TABLE_NAME_Video + "\" WHERE user_id=? ORDER BY changedTime;";
+        String SQL_CMD = "SELECT * FROM \"" + TABLE_NAME_Video + "\" WHERE user_id=?;";
         Cursor cursor = db.rawQuery(SQL_CMD, new String[]{String.valueOf(userId)});
         if (cursor.moveToFirst()) {
             do {
                 Long id = cursor.getLong(cursor.getColumnIndex("id"));
                 String videoFilePath = cursor.getString(cursor.getColumnIndex("videoFilePath"));
-                int scale = 100000
-                int likeCount = Math.random() * scale;
-                int shareCount = Math.random() * scale;
-                int commentCount = Math.random() * scale;
+                float scale = 100000f;
+                int likeCount = (int) ((float) Math.random() * scale);
+                int shareCount = (int) ((float) Math.random() * scale);
+                int commentCount = (int) ((float) Math.random() * scale);
                 Video video = new Video(videoFilePath, likeCount, commentCount, shareCount, "移动应用开发课真牛逼", "this is introuduction", "userAvatar", "@北邮数字媒体技术", id, user);
                 videoArrayList.add(video);
             } while (cursor.moveToNext());

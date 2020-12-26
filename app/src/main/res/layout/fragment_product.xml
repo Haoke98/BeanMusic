@@ -17,10 +17,12 @@
             android:layout_height="wrap_content"
             android:text="你的每一步从这里开始，向全世界人打开你的shijie"
             android:textColor="#F4EEEE"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/timepicker_fragment_product"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
 
         <TimePicker
             android:id="@+id/timepicker_fragment_product"
@@ -29,10 +31,21 @@
             android:layout_weight="1"
             android:background="#ffffff"
             android:timePickerMode="spinner"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_timepicker_show" />
+            app:layout_constraintTop_toBottomOf="@+id/textview_timepicker_show"
+            tools:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_fragmentcomposition"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

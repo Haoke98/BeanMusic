@@ -1,4 +1,4 @@
-package com.sadam.ui4.Camera;
+package com.sadam.ui4.FragmentPlusPage;
 
 import android.hardware.Camera;
 

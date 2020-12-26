@@ -81,7 +81,7 @@ public class FragmentHomePage extends Fragment {
         return fragment;
     }
 
-    static ArrayList<Video> initVideos() {
+    public static ArrayList<Video> initVideos() {
         ArrayList<Video> videos = new ArrayList<>();
         videos.add(new Video("https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0300f400000bvdip1qja8ovg1254o4g&ratio=720p&line=0", 930, 230, 340, "移动应用开发课真牛逼", "this is introuduction", "this is userAvatar usl", "@北邮数字媒体技术"));
         videos.add(new Video("https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0300f460000bv7nnj99ubsq6lm37pqg&ratio=720p&line=0", 237, 10, 10, "柳杨老师技术好强", "this is introuduction", "this is userAvatar usl", "@Sadam模仿工作室"));

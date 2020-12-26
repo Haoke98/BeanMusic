@@ -1,8 +1,7 @@
-package com.sadam.ui4.Camera;
+package com.sadam.ui4.FragmentPlusPage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -14,21 +13,23 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.sadam.ui4.ActivityLogin;
+import com.sadam.ui4.Data.User;
 import com.sadam.ui4.Data.Video;
 import com.sadam.ui4.MainActivity;
 import com.sadam.ui4.R;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -123,16 +124,13 @@ public class FragmentPlusPage extends Fragment {
         }
     }
 
-    public void onActive() {
-//        getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getActivity().getWindow().setFormat(PixelFormat.TRANSPARENT);
-        btnCameraSwitch.callOnClick();
-    }
+    private LinearLayout flagRecording;
 
-    private void onUnActive() {
-        stopRecording();
-        releaseCamera();
+    public static String uploadFile(String url, String filePath) {
+//        try {
+////            Ht\
+//        }
+        return " ";
     }
 
 
@@ -179,19 +177,28 @@ public class FragmentPlusPage extends Fragment {
 
     private User currUser;
 
-    public static String uploadFile(String url, String filePath) {
-        try {
-//            Ht\
-        }
+    public void onActive() {
+//        getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getActivity().getWindow().setFormat(PixelFormat.TRANSPARENT);
+        btnCameraSwitch.callOnClick();
+        isRecording = false;
+    }
+
+    private void onUnActive() {
+        stopRecording();
+        releaseCamera();
+        isRecording = false;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plus_page_fragement, container, false);
-        mainActivity = ((MainActivity) getActivity()).getMySqLiteOpenHelper();
-        currUser = ActivityLogin.getCu rrentUserFromSharedPrefrences(getContext(), mainActivity);
-
+        mainActivity = ((MainActivity) getActivity());
+        currUser = ActivityLogin.getCurrentUserFromSharedPrefrences(getContext(), mainActivity.getMySqLiteOpenHelper());
+        flagRecording = view.findViewById(R.id.linearlayout_flagrecording);
+        flagRecording.setVisibility(View.INVISIBLE);
         frameLayout = view.findViewById(R.id.framelayout_for_camerapreview);
         btnCameraSwitch = view.findViewById(R.id.btn_camera_switch);
         /*相机权限在Activity中已经动态申请处理*/
@@ -274,8 +281,7 @@ public class FragmentPlusPage extends Fragment {
 
     private void prepareRecorder() {
         try {
-            File videoOutputFile = new File(Environment.getExternalStorageDirectory().getCanonicalFile() + getFileNameByTime(".mp4");)
-            ;
+            File videoOutputFile = new File(Environment.getExternalStorageDirectory().getCanonicalFile() + "/" + getFileNameByTime(".mp4"));
             mediaRecorder.setOutputFile(videoOutputFile.getAbsolutePath());
             videoOutputFileAbsPath = videoOutputFile.getAbsolutePath();
             Log.e("FilePath:", videoOutputFileAbsPath);
@@ -291,12 +297,16 @@ public class FragmentPlusPage extends Fragment {
         mediaRecorder.start();
         isRecording = !isRecording;
         btnCameraSwitch.setEnabled(false);
+        flagRecording.setVisibility(View.VISIBLE);
         Log.i("VideoRecorder", "begin recording ....");
     }
 
-    public void getFileNameByTime(String ext) {
+    public String getFileNameByTime(String ext) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        return "SadamBeansMusic" + simpleDateFormat.format(new Date()) + (ext == null ? "" : ext);
+        String extention = (ext == null ? "" : ext);
+        String dateFormatted = simpleDateFormat.format(new Date());
+        String sss = "SadamBeansMusic" + dateFormatted + extention;
+        return sss;
     }
 
     private void releaseCamera() {
@@ -323,6 +333,7 @@ public class FragmentPlusPage extends Fragment {
         }
         isRecording = !isRecording;
         btnCameraSwitch.setEnabled(true);
+        flagRecording.setVisibility(View.INVISIBLE);
         Log.i("VideoRecorder", "stop recording ...");
     }
 

@@ -6,7 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.sadam.ui4.ActivityLogin;
+import com.sadam.ui4.Data.MySqLiteOpenHelper;
+import com.sadam.ui4.Data.User;
+import com.sadam.ui4.FragmentHomePage.FragmentHomePage;
+import com.sadam.ui4.FragmentSelfPage.FragmentComposition.VideoAdapter;
+import com.sadam.ui4.MainActivity;
 import com.sadam.ui4.R;
 
 /**
@@ -56,10 +64,23 @@ public class FragmentLike extends Fragment {
         }
     }
 
+    private MainActivity mainActivity;
+    private User currUser;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_like, container, false);
+        View view = inflater.inflate(R.layout.fragment_like, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview_fragmentlike);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+        VideoAdapter videoAdapter = new VideoAdapter((MainActivity) getActivity());
+        recyclerView.setAdapter(videoAdapter);
+        mainActivity = (MainActivity) getActivity();
+        MySqLiteOpenHelper mySqLiteOpenHelper = mainActivity.getMySqLiteOpenHelper();
+        currUser = ActivityLogin.getCurrentUserFromSharedPrefrences(getContext(), mySqLiteOpenHelper);
+        videoAdapter.setVideos(FragmentHomePage.initVideos());
+        return view;
     }
 }

@@ -13,7 +13,7 @@ import android.widget.VideoView;
 
 import androidx.fragment.app.Fragment;
 
-import com.sadam.ui4.Camera.FragmentPlusPage;
+import com.sadam.ui4.FragmentPlusPage.FragmentPlusPage;
 import com.sadam.ui4.MainActivity;
 import com.sadam.ui4.R;
 import com.sadam.ui4.SadamFragment;
