@@ -54,6 +54,14 @@ public class ActivityLogin extends AppCompatActivity {
         password_register = findViewById(R.id.password_register);
         btn_login = findViewById(R.id.btn_login);
         btn_register = findViewById(R.id.btn_register);
+        Button btnPass = findViewById(R.id.button6);
+        btnPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
